@@ -8,18 +8,25 @@
         android:id="@+id/bsaisehi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="30dp"
+        android:textSize="25dp"
         android:text="@string/coordinatesyouentered"/>
     <TextView
         android:layout_width="wrap_content"
         android:id="@+id/addalarmtextview"
         android:layout_height="wrap_content"
-        android:textSize="30dp"/>
+        android:textSize="25dp"/>
 
     <EditText
         android:id="@+id/addalarmeditview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_margin="20dp"
         android:hint="@string/enteryourmessage"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/button"
+        android:id="@+id/addalarmbtn"/>
+
 </LinearLayout>

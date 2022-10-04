@@ -15,6 +15,6 @@ class Addalarm : AppCompatActivity() {
         val coordinatesentered = findViewById<TextView>(R.id.addalarmtextview)
         val lat = (lati * 100.0).roundToInt()/100.0
         val lon = (longi * 100.0).roundToInt()/100.0
-        coordinatesentered.text = "("+lat.toString() + " , " + lon.toString()+")"
+        coordinatesentered.text = lat.toString() + " , " + lon.toString()
     }
 }
