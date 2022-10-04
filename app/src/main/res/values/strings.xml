@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">GeoAlarm</string>
+    <string name="splashtext">WELCOME</string>
+    <string name="help">help</string>
+    <string name="contact">contact</string>
+    <string name="contactcontent">contact us at : shivamverma24092001@gmail.com</string>
+    <string name="helpcontent">help</string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="coordinatesyouentered">Coordinates you entered : </string>
+    <string name="enteryourmessage">Enter your message</string>
+</resources>
