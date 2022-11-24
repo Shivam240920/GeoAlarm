@@ -18,8 +18,8 @@ class Addalarm : AppCompatActivity() {
         val lati = fromintent.getDoubleExtra("latitude",0.0)
         val longi =fromintent.getDoubleExtra("longitude",0.0)
         val coordinatesentered = findViewById<TextView>(R.id.addalarmtextview)
-        val lat = (lati * 100.0).roundToInt()/100.0
-        val lon = (longi * 100.0).roundToInt()/100.0
+        val lat = (lati * 10000000.0).roundToInt()/100.0
+        val lon = (longi * 10000000.0).roundToInt()/100.0
         coordinatesentered.text = lat.toString() + " , " + lon.toString()
 
         val addalarmbtn = findViewById<Button>(R.id.addalarmbtn)

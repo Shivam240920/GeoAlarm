@@ -26,8 +26,7 @@ class LocationService: Service() {
 
     private var notificationManager: NotificationManager?=null
 
-    private var location: Location?=null
-
+    var location: Location?=null
 
     override fun onCreate() {
         super.onCreate()
@@ -47,7 +46,7 @@ class LocationService: Service() {
         notificationManager = this.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
         if (Build.VERSION.SDK_INT>= Build.VERSION_CODES.O){
             val notificationChannel = NotificationChannel(CHANNEL_ID,"locations",
-                NotificationManager.IMPORTANCE_HIGH)
+                NotificationManager.IMPORTANCE_LOW)
             notificationManager?.createNotificationChannel(notificationChannel)
         }
     }

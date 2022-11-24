@@ -13,19 +13,19 @@ import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
-import androidx.core.database.getDoubleOrNull
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 
 class MainActivity : AppCompatActivity() {
 
-    private var dblati:Double = 0.0
-    private var dblongi:Double = 0.0
     private var service:Intent?=null
+    private lateinit var job: Job
+
+    private var dblat:Int = 0
+    private var dblong:Int = 0
+
     private val backgroundLocation = registerForActivityResult(ActivityResultContracts.RequestPermission()){
         if (it){
 
@@ -64,22 +64,25 @@ class MainActivity : AppCompatActivity() {
         }
         viewData()
 
-        GlobalScope.launch {
-            while (true){
-                checklist()
-                delay(1000)
-            }
-        }
+
 
 
         service = Intent(this,LocationService::class.java)
 
         var btnstart = findViewById<Button>(R.id.btnStartLocationTracking)
         btnstart.setOnClickListener {
-            checkPermissions()
+
+            job = GlobalScope.launch {
+                while (true){
+                    checklist()
+                    checkPermissions()
+                    delay(1000)
+                }
+            }
         }
 
         findViewById<Button>(R.id.btnStopLocationTracking).setOnClickListener {
+            job.cancel()
             stopService(service)
         }
     }
@@ -120,8 +123,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun checklist(){
-        if(matchCoordinates()){
-            Log.d("checklol","hi")
+        if(matchCoordinates()!=null){
+            Log.d("checklol",matchCoordinates().toString())
         }
         else{
             Log.d("checklol","no")
@@ -168,15 +171,18 @@ class MainActivity : AppCompatActivity() {
     fun receiveLocationEvent(locationEvent: LocationEvent){
         findViewById<TextView>(R.id.tvlatitude).text = "Latitude --> ${locationEvent.latitude}"
         findViewById<TextView>(R.id.tvlongitude).text = "Longitude --> ${locationEvent.longitude}"
-        dblati = locationEvent.latitude!!
-        dblongi = locationEvent.longitude!!
+        dblat = (locationEvent.latitude!!*1000).toInt()
+        dblong = (locationEvent.longitude!!*1000).toInt()
     }
 
-    fun matchCoordinates():Boolean{
-        var cc = db.checklocation()
-        if(cc!!.latitude/100 == dblati/100 && cc!!.longitude/10==dblongi/10)
-            return true
-        return false
+    fun matchCoordinates():String?{
+
+        var ans = db.checklocation()
+        for (cr in ans){
+            if (dblat==(cr!!.latitude*1000).toInt() && dblong==(cr!!.longitude*1000).toInt())
+                return cr.msg
+        }
+        return null
     }
 
 }

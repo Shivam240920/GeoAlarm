@@ -49,17 +49,18 @@ class DataBaseHandler(var context: Context):SQLiteOpenHelper(context, DATABASE_N
         return crs
     }
 
-    fun checklocation(): LatlongMsg?{
+    fun checklocation(): ArrayList<LatlongMsg>{
         val db = this.readableDatabase
         val crs = db.rawQuery("select * from $TABLE_NAME",null,null)
-        while (crs.moveToNext()){
+        var ans = ArrayList<LatlongMsg>()
+        while (crs!!.moveToNext()){
             val llm=LatlongMsg()
             llm.longitude = crs.getDoubleOrNull(2)!!
             llm.latitude = crs.getDoubleOrNull(1)!!
             llm.msg = crs.getStringOrNull(3)!!
-            return llm
+            ans.add(llm)
         }
-        return null
+        return ans
     }
 
 }
