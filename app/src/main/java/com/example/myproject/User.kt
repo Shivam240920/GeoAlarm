@@ -11,4 +11,8 @@ class User {
         this.lat = lat
         this.lng = lng
     }
+    constructor(){
+
+    }
+
 }

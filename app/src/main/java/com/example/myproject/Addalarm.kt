@@ -1,5 +1,6 @@
 package com.example.myproject
 
+
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -28,6 +29,8 @@ class Addalarm : AppCompatActivity() {
                 var user = User(lati,longi,addalarmedittext.text.toString())
                 var db = DataBaseHandler(context)
                 db.insertData(user)
+                
+                intent.putExtra("refresh", false)
             }
             else{
                 Toast.makeText(context, "Please Enter Some Message", Toast.LENGTH_SHORT).show()

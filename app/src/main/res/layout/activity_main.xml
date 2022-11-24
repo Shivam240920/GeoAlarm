@@ -25,23 +25,71 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_height="fill_parent"
+        android:layout_marginTop="10dp"
+        android:id="@+id/scrollView"
+        android:fillViewport="true"
         android:layout_below="@+id/tbar">
-        <ListView
-            android:id="@+id/listid"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp"
+        android:layout_margin="10dp"
+        android:id="@+id/main_listid"/>
     </ScrollView>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/add"
+        android:layout_above="@+id/textlinear"
+        android:id="@+id/buttonlinear"
+        android:orientation="horizontal">
+        <Button
+            android:layout_width="wrap_content"
+            android:id="@+id/btnStartLocationTracking"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:text="Start"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:text="Stop"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:id="@+id/btnStopLocationTracking"
+            android:layout_height="wrap_content"/>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/add"
+            android:layout_marginRight="0dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:src="@drawable/ic_baseline_add_24"
+            app:fabSize="auto"
+            tools:ignore="SpeakableTextPresentCheck" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textlinear"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_margin="20dp"
-        android:src="@drawable/ic_baseline_add_24"
-        app:fabSize="auto"/>
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Latitude: "
+            android:id="@+id/tvlatitude"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="Longitude: "
+            android:layout_height="wrap_content"
+            android:id="@+id/tvlongitude"/>
+
+    </LinearLayout>
+
+
 
 </RelativeLayout>

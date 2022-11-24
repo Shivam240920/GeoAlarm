@@ -2,9 +2,13 @@ package com.example.myproject
 
 import android.content.ContentValues
 import android.content.Context
+import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.widget.Toast
+import androidx.core.database.getDoubleOrNull
+import androidx.core.database.getStringOrNull
+
 
 val DATABASE_NAME = "MyDB"
 val COL_ID = "id"
@@ -21,7 +25,8 @@ class DataBaseHandler(var context: Context):SQLiteOpenHelper(context, DATABASE_N
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
-
+        db!!.execSQL("DROP TABLE IF EXISTS $TABLE_NAME")
+        onCreate(db)
     }
 
     fun insertData(user : User){
@@ -37,4 +42,24 @@ class DataBaseHandler(var context: Context):SQLiteOpenHelper(context, DATABASE_N
         else
             Toast.makeText(context, "success", Toast.LENGTH_SHORT).show()
     }
+
+    fun listfromdb(): Cursor? {
+        val db = this.readableDatabase
+        val crs = db.rawQuery("select * from $TABLE_NAME", null)
+        return crs
+    }
+
+    fun checklocation(): LatlongMsg?{
+        val db = this.readableDatabase
+        val crs = db.rawQuery("select * from $TABLE_NAME",null,null)
+        while (crs.moveToNext()){
+            val llm=LatlongMsg()
+            llm.longitude = crs.getDoubleOrNull(2)!!
+            llm.latitude = crs.getDoubleOrNull(1)!!
+            llm.msg = crs.getStringOrNull(3)!!
+            return llm
+        }
+        return null
+    }
+
 }
