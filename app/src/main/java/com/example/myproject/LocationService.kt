@@ -26,7 +26,7 @@ class LocationService: Service() {
 
     private var notificationManager: NotificationManager?=null
 
-    var location: Location?=null
+    private var location: Location?=null
 
     override fun onCreate() {
         super.onCreate()
@@ -66,7 +66,6 @@ class LocationService: Service() {
         locationCallback?.let {
             fusedLocationProviderClient?.removeLocationUpdates(it)
         }
-
         stopForeground(true)
         stopSelf()
     }

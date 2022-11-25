@@ -42,7 +42,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             it.getOrDefault(android.Manifest.permission.ACCESS_FINE_LOCATION,false)->{
-
             }
 
         }
@@ -64,9 +63,6 @@ class MainActivity : AppCompatActivity() {
         }
         viewData()
 
-
-
-
         service = Intent(this,LocationService::class.java)
 
         var btnstart = findViewById<Button>(R.id.btnStartLocationTracking)
@@ -74,8 +70,8 @@ class MainActivity : AppCompatActivity() {
 
             job = GlobalScope.launch {
                 while (true){
-                    checklist()
                     checkPermissions()
+                    checklist()
                     delay(1000)
                 }
             }
@@ -130,8 +126,6 @@ class MainActivity : AppCompatActivity() {
             Log.d("checklol","no")
         }
     }
-
-
 
     override fun onStart() {
         super.onStart()
