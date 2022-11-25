@@ -21,7 +21,7 @@ import org.greenrobot.eventbus.Subscribe
 class MainActivity : AppCompatActivity() {
 
     private var service:Intent?=null
-    private lateinit var job: Job
+    private var job: Job? = null
 
     private var dblat:Int = 0
     private var dblong:Int = 0
@@ -78,7 +78,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         findViewById<Button>(R.id.btnStopLocationTracking).setOnClickListener {
-            job.cancel()
+            job!!.cancel()
             stopService(service)
         }
     }
@@ -120,10 +120,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun checklist(){
         if(matchCoordinates()!=null){
-            Log.d("checklol",matchCoordinates().toString())
+            Log.d("check",matchCoordinates().toString())
         }
         else{
-            Log.d("checklol","no")
+            Log.d("check","no")
         }
     }
 
