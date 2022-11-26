@@ -17,14 +17,15 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
+import kotlin.math.abs
 
 class MainActivity : AppCompatActivity() {
 
     private var service:Intent?=null
     private var job: Job? = null
 
-    private var dblat:Int = 0
-    private var dblong:Int = 0
+    private var dblat:Double = 0.0
+    private var dblong:Double = 0.0
 
     private val backgroundLocation = registerForActivityResult(ActivityResultContracts.RequestPermission()){
         if (it){
@@ -165,15 +166,15 @@ class MainActivity : AppCompatActivity() {
     fun receiveLocationEvent(locationEvent: LocationEvent){
         findViewById<TextView>(R.id.tvlatitude).text = "Latitude --> ${locationEvent.latitude}"
         findViewById<TextView>(R.id.tvlongitude).text = "Longitude --> ${locationEvent.longitude}"
-        dblat = (locationEvent.latitude!!*1000).toInt()
-        dblong = (locationEvent.longitude!!*1000).toInt()
+        dblat = locationEvent.latitude!!
+        dblong = locationEvent.longitude!!
     }
 
     fun matchCoordinates():String?{
 
         var ans = db.checklocation()
         for (cr in ans){
-            if (dblat==(cr!!.latitude*1000).toInt() && dblong==(cr!!.longitude*1000).toInt())
+            if (abs(dblat-(cr!!.latitude))<=0.00168 && abs(dblong-(cr!!.longitude))<=0.00168)
                 return cr.msg
         }
         return null
