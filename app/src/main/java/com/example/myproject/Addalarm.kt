@@ -13,10 +13,9 @@ class Addalarm : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_addalarm)
-        val fromintent = intent
         val context = this
-        val lati = fromintent.getDoubleExtra("latitude",0.0)
-        val longi =fromintent.getDoubleExtra("longitude",0.0)
+        val lati = intent.getDoubleExtra("latitude",0.0)
+        val longi =intent.getDoubleExtra("longitude",0.0)
         val coordinatesentered = findViewById<TextView>(R.id.addalarmtextview)
         val lat = (lati * 100.0).roundToInt()/100.0
         val lon = (longi * 100.0).roundToInt()/100.0
@@ -26,8 +25,8 @@ class Addalarm : AppCompatActivity() {
         addalarmbtn.setOnClickListener({
             val addalarmedittext = findViewById<EditText>(R.id.addalarmeditview)
             if(addalarmedittext.text.toString().length>0){
-                var user = User(lati,longi,addalarmedittext.text.toString())
-                var db = DataBaseHandler(context)
+                val user = User(lati,longi,addalarmedittext.text.toString())
+                val db = DataBaseHandler(context)
                 db.insertData(user)
                 
                 intent.putExtra("refresh", false)

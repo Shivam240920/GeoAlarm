@@ -10,7 +10,6 @@ import android.os.Build
 import android.os.IBinder
 import androidx.core.app.NotificationCompat
 import com.google.android.gms.location.*
-import com.google.android.gms.location.R
 import org.greenrobot.eventbus.EventBus
 
 class LocationService: Service() {
@@ -34,9 +33,6 @@ class LocationService: Service() {
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
         locationRequest = LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY,1000).setIntervalMillis(500).build()
         locationCallback = object : LocationCallback(){
-            override fun onLocationAvailability(p0: LocationAvailability) {
-                super.onLocationAvailability(p0)
-            }
 
             override fun onLocationResult(locationResult: LocationResult) {
                 super.onLocationResult(locationResult)
@@ -79,13 +75,13 @@ class LocationService: Service() {
         startForeground(NOTIFICATION_ID,getNotification())
     }
 
-    fun getNotification(): Notification {
+    private fun getNotification(): Notification {
         val notification = NotificationCompat.Builder(this, CHANNEL_ID)
             .setContentTitle("Location Updates")
             .setContentText(
                 "Latitude--> ${location?.latitude}\n Longitude-->${location?.longitude}"
             )
-            .setSmallIcon(com.example.myproject.R.mipmap.ic_launcher)
+            .setSmallIcon(R.mipmap.ic_launcher)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setOngoing(true)
         if (Build.VERSION.SDK_INT>= Build.VERSION_CODES.O){

@@ -1,6 +1,9 @@
 package com.example.myproject
 
 import android.annotation.SuppressLint
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
@@ -28,9 +31,6 @@ class MainActivity : AppCompatActivity() {
     private var dblong:Double = 0.0
 
     private val backgroundLocation = registerForActivityResult(ActivityResultContracts.RequestPermission()){
-        if (it){
-
-        }
     }
     @RequiresApi(Build.VERSION_CODES.N)
     private val locationPermissions = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()){
@@ -66,14 +66,14 @@ class MainActivity : AppCompatActivity() {
 
         service = Intent(this,LocationService::class.java)
 
-        var btnstart = findViewById<Button>(R.id.btnStartLocationTracking)
+        val btnstart = findViewById<Button>(R.id.btnStartLocationTracking)
         btnstart.setOnClickListener {
 
             job = GlobalScope.launch {
                 while (true){
                     checkPermissions()
                     checklist()
-                    delay(1000)
+                    delay(1500)
                 }
             }
         }
@@ -104,16 +104,16 @@ class MainActivity : AppCompatActivity() {
 
 
     fun viewData(){
-        var cursor = db.listfromdb()
+        val cursor = db.listfromdb()
         if(cursor?.count == 0){
             Toast.makeText(this, "Nothing To Show", Toast.LENGTH_SHORT).show()
         }
         else{
             while (cursor!!.moveToNext()){
-                listItem.add(cursor.getString(cursor.getColumnIndex(COL_MSG)))
+                listItem.add(cursor.getString(abs(cursor.getColumnIndex(COL_MSG))))
             }
 
-            var adapter = ArrayAdapter(this,android.R.layout.simple_list_item_activated_1,listItem)
+            val adapter = ArrayAdapter(this,android.R.layout.simple_list_item_activated_1,listItem)
             val listView = findViewById<ListView>(R.id.main_listid)
             listView.adapter = adapter
         }
@@ -121,10 +121,26 @@ class MainActivity : AppCompatActivity() {
 
     private fun checklist(){
         if(matchCoordinates()!=null){
-            Log.d("check",matchCoordinates().toString())
+            job!!.cancel()
+            stopService(service)
+            Log.d("checklol",matchCoordinates()!!)
+            val i = Intent(applicationContext,MyBroadcastReceiver::class.java)
+            i.putExtra("messageofalarm",matchCoordinates())
+            if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.S) {
+                val pi =
+                    PendingIntent.getBroadcast(applicationContext, 0, i, PendingIntent.FLAG_MUTABLE)
+                val am = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+                am.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), pi)
+            }
+            else{
+                val pi =
+                    PendingIntent.getBroadcast(applicationContext, 0, i, 0)
+                val am = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+                am.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), pi)
+            }
         }
         else{
-            Log.d("check","no")
+            Log.d("checklol","no")
         }
     }
 
@@ -172,9 +188,9 @@ class MainActivity : AppCompatActivity() {
 
     fun matchCoordinates():String?{
 
-        var ans = db.checklocation()
+        val ans = db.checklocation()
         for (cr in ans){
-            if (abs(dblat-(cr!!.latitude))<=0.00168 && abs(dblong-(cr!!.longitude))<=0.00168)
+            if (abs(dblat-(cr.latitude))<=0.00168 && abs(dblong-(cr.longitude))<=0.00168)
                 return cr.msg
         }
         return null

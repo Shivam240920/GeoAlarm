@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:backgroundTint="#100F0F"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context=".AlarmOn">
+
+    <TextView
+        android:id="@+id/AlarmMessage"
+        android:layout_width="215dp"
+        android:layout_height="66dp"
+        android:layout_marginTop="120dp"
+        android:backgroundTint="#0B0A0A"
+        android:textAlignment="center"
+        android:textSize="40dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buttonStopAlarm"
+        android:layout_width="92dp"
+        android:layout_height="43dp"
+        android:backgroundTint="#BC25BC"
+        android:text="Stop"
+        android:textAlignment="center"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonDeleteAlarm"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/AlarmMessage"
+        app:layout_constraintVertical_bias="0.597" />
+
+    <Button
+        android:id="@+id/buttonDeleteAlarm"
+        android:layout_width="wrap_content"
+        android:layout_height="43dp"
+        android:layout_marginBottom="344dp"
+        android:backgroundTint="#C561C3"
+        android:text="Delete"
+        android:textAlignment="center"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -17,10 +17,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyProject"
         tools:targetApi="31">
-
+        <activity
+            android:name=".AlarmOn"
+            android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"
+            android:exported="true">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".contactactivity"
-            android:exported="false">
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
+            android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -33,14 +41,16 @@
 
         <activity
             android:name=".Addalarm"
-            android:exported="false">
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
+            android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".helpactivity"
-            android:exported="false">
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
+            android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -62,7 +72,8 @@
 
         <activity
             android:name=".MapsActivity"
-            android:exported="false"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
+            android:exported="true"
             android:label="@string/title_activity_maps" />
         <activity
             android:name=".SplashActivity"
@@ -84,6 +95,9 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+        <receiver android:name=".MyBroadcastReceiver"
+            android:exported="true">
+        </receiver>
     </application>
 
 </manifest>
