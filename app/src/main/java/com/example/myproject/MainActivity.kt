@@ -16,6 +16,8 @@ import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.*
 import org.greenrobot.eventbus.EventBus
@@ -62,6 +64,7 @@ class MainActivity : AppCompatActivity() {
         fn.setOnClickListener {
             startActivity(intent)
         }
+
         viewData()
 
         service = Intent(this,LocationService::class.java)
@@ -79,7 +82,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         findViewById<Button>(R.id.btnStopLocationTracking).setOnClickListener {
-            job!!.cancel()
+            job?.cancel()
             stopService(service)
         }
     }
@@ -113,9 +116,11 @@ class MainActivity : AppCompatActivity() {
                 listItem.add(cursor.getString(abs(cursor.getColumnIndex(COL_MSG))))
             }
 
-            val adapter = ArrayAdapter(this,android.R.layout.simple_list_item_activated_1,listItem)
-            val listView = findViewById<ListView>(R.id.main_listid)
-            listView.adapter = adapter
+            val listrecyclerview = findViewById<RecyclerView>(R.id.listrecyclerview)
+            listrecyclerview.layoutManager = LinearLayoutManager(this)
+
+            val listadapter = listAdapter(listItem)
+            listrecyclerview.adapter = listadapter
         }
     }
 
