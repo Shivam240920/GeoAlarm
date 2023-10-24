@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">GeoAlarm</string>
+    <string name="add_more">add_more</string>
+    <string name="start">START</string>
+    <string name="stop">STOP</string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="enter">Enter</string>
+    <string name="enter_message">Enter message</string>
+    <string name="latitude">Latitude: </string>
+    <string name="longitude">| Longitude: </string>
+</resources>
